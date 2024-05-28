@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+import "./App.css";
+import UserForm from "./components/userForm/UserForm";
+import UserInfo from "./components/userInfo/UserInfo";
+import UserRepo from "./components/userRepo/UserRepo";
 
-function App() {
+const App = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleUserSubmit = (username) => {
+    setSelectedUser(username);
+  };
+  const handleReset = () => {
+    setSelectedUser(null);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>User data:</h1>
+      <UserForm onUserSubmit={handleUserSubmit} />
+      {selectedUser && <UserInfo username={selectedUser} />}
+      {selectedUser && <UserRepo username={selectedUser} />}
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
-}
+};
 
 export default App;
